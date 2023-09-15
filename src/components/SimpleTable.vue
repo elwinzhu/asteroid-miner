@@ -1,10 +1,11 @@
 <template>
     <div class="simple-table">
-        <table ref="table" class="table" :class="{'is-flex': isFlex || !hasData}">
+        <table ref="table" class="table">
             <thead class="tab-header">
             <td v-for="(col, i) in columns" :key="i"
                 class="header-cell"
-                :class="{'hidden-cell': col.hidden}">
+                :class="{'hidden-cell': col.hidden}"
+                :style="[{width: col.width ? (col.width + 'px') : (defaultCellWidth + 'px')}]">
                 {{col.label || ""}}
             </td>
             </thead>
@@ -22,10 +23,10 @@
                 <td v-for="(col, i) in columns" :key="i"
                     class="data-cell"
                     :class="{'hidden-cell': col.hidden}"
-                    :style="[{width: col.width ? (col.width + 'px') : ''},
+                    :style="[{width: col.width ? (col.width + 'px') : (defaultCellWidth + 'px')},
                         col.cellStyle && col.cellStyle(row)]">
 
-                    <slot :data="row" name="action-slot" v-if="col.isAction"></slot>
+                    <slot :data="row" name="action-slot" v-if="col.isAction && (col.show && col.show(row))"></slot>
                     <template v-else>
                         {{row[col.field] }}
                     </template>
@@ -118,7 +119,8 @@
 
         data() {
             return {
-                keyFieldName: null
+                keyFieldName: null,
+                defaultCellWidth: 60
             };
         }
     };
@@ -130,6 +132,28 @@
     .table {
         border-collapse: collapse;
 
+        width: 100%;
+        .tab-header {
+            display: flex;
+            align-items: center;
+            .header-cell {
+                flex: 1;
+                height: 40px;
+                line-height: 40px;
+            }
+        }
+        .data-row {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            .data-cell {
+                flex: 1;
+                height: 40px;
+                line-height: 40px;
+            }
+        }
+
+        /*
         &.is-flex {
             width: 100%;
             .tab-header {
@@ -152,6 +176,7 @@
                 }
             }
         }
+        */
     }
 
     .hidden-cell {

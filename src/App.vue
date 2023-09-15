@@ -10,6 +10,7 @@
     * {
         padding: 0;
         margin: 0;
+        box-sizing: border-box;
     }
     body{
         background-color: #191A29;
@@ -24,6 +25,6 @@
         //border: 1px solid red;
         max-width: 1440px;
         margin: 0 auto;
-        padding: 24px;
+        padding: 24px 24px 84px 24px;
     }
 </style>

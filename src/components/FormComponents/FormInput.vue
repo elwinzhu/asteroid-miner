@@ -41,7 +41,7 @@
             font-style: normal;
             font-weight: 700;
             line-height: 100%;
-            width: calc(100% - 24px);
+            width: 100%;
         }
     }
 </style>

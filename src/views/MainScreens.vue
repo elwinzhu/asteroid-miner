@@ -9,7 +9,7 @@
                 <div class="divider"></div>
 
                 <div class="table-wrapper">
-                    <simple-table :columns="columns" :data="dataList" :is-flex="flexTable">
+                    <simple-table :columns="columns" :data="dataList">
                         <template slot-scope="row" slot="action-slot">
                             <div class="action-cell" @click="onCreateMiner(row)">
                                 <label>
@@ -23,7 +23,7 @@
             </div>
 
             <div class="right">
-                <p class="years-txt">250 Years</p>
+                <p class="years-txt">{{tickTxt}}</p>
                 <div class="img-wrapper">
                 </div>
             </div>
@@ -57,7 +57,8 @@
             ...mapState({
                 asteroidsList: state => state.contents.asteroidsList,
                 minersList: state => state.contents.minersList,
-                planetsList: state => state.contents.planetsList
+                planetsList: state => state.contents.planetsList,
+                tick: state => state.contents.tick
             }),
 
             columns() {
@@ -82,8 +83,8 @@
                     return this.planetsList;
                 }
             },
-            flexTable() {
-                return this.currentListType === 2 || this.currentListType === 3;
+            tickTxt() {
+                return `${this.tick} Year${this.tick > 1 ? "s" : ""}`;
             }
         },
         methods: {
@@ -110,7 +111,7 @@
             .nav-bar {
                 margin-top: 32px;
             }
-
+            max-width: 588px;
         }
 
         .divider {
@@ -121,8 +122,8 @@
 
         .table-wrapper {
             //border: 1px solid red;
-            height: 750px;
-            max-height: 750px;
+            //height: 750px;
+            //max-height: 750px;
 
             .action-cell {
                 color: #00F0FF;
@@ -138,7 +139,9 @@
         }
 
         .right {
+            //border: 1px solid red;
             padding-top: 36px;
+            flex: 1;
 
             .years-txt {
                 color: #FFF;
@@ -153,11 +156,12 @@
                 margin-top: 12px;
 
                 background: url("../assets/images/main-screen-bg.png");
-                background-position: center center;
+                background-position: center top;
                 background-repeat: no-repeat;
                 background-size: contain;
 
-                width: 800px;
+                width: 100%;
+                max-width: 800px;
                 height: 800px;
                 flex-shrink: 0;
             }

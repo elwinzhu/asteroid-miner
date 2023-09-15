@@ -28,7 +28,7 @@ socket.on("connect_error", () => {
 const listener = (data) => {
     if (isInitData) {
         isInitData = false;
-        store.commit("contents/setInitMinerals", data);
+        store.commit("contents/setInitMinerals", data.asteroids);
     }
     store.dispatch("contents/updateDataList", data);
 };

@@ -1,7 +1,7 @@
 import {MinerStatus} from "../../assets/constants";
 
 const state = {
-    fullDataList: null,
+    //fullDataList: null,
     asteroidsList: null,
     minersList: null,
     planetsList: null,
@@ -12,10 +12,10 @@ const state = {
 
 
 const mutations = {
-    setFullDataList: (state, list) => {
-        //console.log(list);
-        state.fullDataList = list;
-    },
+    // setFullDataList: (state, list) => {
+    //     //console.log(list);
+    //     state.fullDataList = list;
+    // },
     setAsteroids: (state, list) => {
         list.forEach(ast => {
             ast.displayPosition = `${ast.position.x},${ast.position.y}`;
@@ -45,11 +45,11 @@ const mutations = {
     setTick: (state, tick) => {
         state.tick = tick;
     },
-    setInitMinerals: (state, data) => {
-        state.asteroidInitMinerals = data.asteroids.map(ast => {
+    setInitMinerals: (state, asteroids) => {
+        state.asteroidInitMinerals = asteroids.map(ast => {
             return {
                 id: ast._id,
-                minerals: Math.ceil(Math.random() * 400 + 800)
+                minerals: ast.minerals
             }
         });
     }
@@ -57,7 +57,7 @@ const mutations = {
 
 const actions = {
     updateDataList({commit, state}, dataList) {
-        commit("setFullDataList", dataList);
+        //commit("setFullDataList", dataList);
         commit("setPlanets", dataList.planets);
         commit("setMiners", dataList.miners);
         commit("setAsteroids", dataList.asteroids);

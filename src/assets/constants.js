@@ -10,7 +10,7 @@ export const MinerColumns = [
         field: "_id", isRowKey: true, hidden: true
     },
     {
-        field: "name", label: "Name", width: 80,
+        field: "name", label: "Name",
         cellStyle: (data) => {
             return {color: 'white', textDecoration: 'underline'}
         }
@@ -19,23 +19,23 @@ export const MinerColumns = [
         field: "planetName", label: "Planet", width: 100,
     },
     {
-        field: "displayCapacity", label: "CarryCapacity", width: 100,
+        field: "displayCapacity", label: "CarryCapacity", width: 80,
         cellStyle: (data) => {
             if (data.carryCapacity === 200)
                 return {color: '#00CF67'}
         }
     },
     {
-        field: "travelSpeed", label: "TravelSpeed", width: 80,
+        field: "travelSpeed", label: "TravelSpeed", width: 75
     },
     {
-        field: "miningSpeed", label: "MiningSpeed", width: 80,
+        field: "miningSpeed", label: "MiningSpeed", width: 75
     },
     {
-        field: "displayPosition", label: "Position", width: 80,
+        field: "displayPosition", label: "Position",
     },
     {
-        field: "displayStatus", label: "Status", width: 80,
+        field: "displayStatus", label: "Status",
     }
 ];
 
@@ -79,6 +79,7 @@ export const PlanetsColumns = [
         }
     },
     {
-        isAction: true
+        isAction: true,
+        show: (data) => data.minerals > 1000
     }
 ];

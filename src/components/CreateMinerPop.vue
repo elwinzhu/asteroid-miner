@@ -1,17 +1,19 @@
 <template>
     <div class="component create-miner-pop">
         <pop :width="440">
-            <h3 slot="pop-header" class="pop-header">Create a miner</h3>
+            <h3 slot="pop-header" class="pop-header title">Create a miner</h3>
             <div slot="pop-body" class="pop-body">
                 <form-input title="Name" v-model="name" class="form-component"></form-input>
                 <form-selector :options="planets" :key="_id" label="name" title="Planets"
                                class="form-component"></form-selector>
 
-                <h3>Assign points</h3>
-                <div class="flex-container">
-                    <form-input title="carryCapacity" v-model="carryCapacity" class="form-component"></form-input>
-                    <form-input title="travelSpeed" v-model="travelSpeed" class="form-component"></form-input>
-                    <form-input title="miningSpeed" v-model="miningSpeed" class="form-component"></form-input>
+                <div class="assign-points">
+                    <h3 class="title">Assign points</h3>
+                    <div class="flex-container">
+                        <form-input title="carryCapacity" v-model="carryCapacity" class="form-component"></form-input>
+                        <form-input title="travelSpeed" v-model="travelSpeed" class="form-component"></form-input>
+                        <form-input title="miningSpeed" v-model="miningSpeed" class="form-component"></form-input>
+                    </div>
                 </div>
             </div>
         </pop>
@@ -47,7 +49,7 @@
 </script>
 
 <style scoped lang="scss">
-    .pop-header {
+    .title {
         color: #FFF;
         text-align: center;
         font-family: lato-bold;
@@ -61,6 +63,10 @@
 
         .form-component + .form-component{
             margin-top: 16px;
+        }
+
+        .assign-points{
+            margin-top: 32px;
         }
     }
 </style>
