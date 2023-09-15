@@ -1,0 +1,56 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 4249824 */
+  src: url('iconfont.woff2?t=1694633964774') format('woff2'),
+       url('iconfont.woff?t=1694633964774') format('woff'),
+       url('iconfont.ttf?t=1694633964774') format('truetype'),
+       url('iconfont.svg?t=1694633964774#iconfont') format('svg');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-a-delete-circled-outline1:before {
+  content: "\e60b";
+}
+
+.icon-star-shining:before {
+  content: "\e609";
+}
+
+.icon-star-normal:before {
+  content: "\e60a";
+}
+
+.icon-delete:before {
+  content: "\e606";
+}
+
+.icon-planet:before {
+  content: "\e607";
+}
+
+.icon-miner:before {
+  content: "\e605";
+}
+
+.icon-asteroid:before {
+  content: "\e604";
+}
+
+.icon-logo:before {
+  content: "\e601";
+}
+
+.icon-add-miner:before {
+  content: "\e602";
+}
+
+.icon-loading:before {
+  content: "\e603";
+}
+
