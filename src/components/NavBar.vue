@@ -61,7 +61,6 @@
         .name {
             color: $dimColor;
             font-family: Lato;
-            font-size: 12px;
             font-style: normal;
             font-weight: 400;
             line-height: 100%;

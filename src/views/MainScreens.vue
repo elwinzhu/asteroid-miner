@@ -9,7 +9,7 @@
                 <div class="divider"></div>
 
                 <div class="table-wrapper">
-                    <simple-table :columns="columns" :data="dataList">
+                    <simple-table :columns="columns" :data="dataList" :table-style="tableStyle">
                         <template slot-scope="row" slot="action-slot">
                             <div class="action-cell" @click="onCreateMiner(row)">
                                 <label>
@@ -29,7 +29,8 @@
             </div>
         </div>
 
-        <create-miner-pop v-if="showCreateMinerPop"></create-miner-pop>
+        <create-miner-pop :open.sync="showCreateMinerPop" :data="planet"></create-miner-pop>
+
     </div>
 </template>
 
@@ -50,7 +51,11 @@
         data() {
             return {
                 currentListType: 1,
-                showCreateMinerPop: false
+                showCreateMinerPop: false,
+                planet: null,
+                tableStyle: {
+                    minWidth: '380px'
+                }
             }
         },
         computed: {
@@ -88,9 +93,9 @@
             }
         },
         methods: {
-            onCreateMiner(data) {
-                console.log(1, data);
+            onCreateMiner(row) {
                 this.showCreateMinerPop = true;
+                this.planet = row.data;
             },
             onTabItemChanged(item) {
                 //console.log(item);

@@ -1,41 +1,95 @@
 <template>
-    <div class="component form-selector">
-        <p class="title">{{title}}</p>
+    <div class="component form-selector" @click.stop>
+        <p class="title label-text">{{title}}</p>
 
         <div class="selector-wrapper">
-            <input v-model="value" class="input" @click="onSelectorClick"/>
-            <img src="../../assets/images/caret.svg" class="caret"/>
+            <input :value="label" class="form-input btn-like selector-input" @click="onSelectorClick" readonly/>
+            <img src="../../assets/images/caret.svg" class="caret btn-like"
+                 :class="[showOptionPanel ? 'options-show': '']"/>
 
-            <div class="options-wrapper" :class="[showOptions ? 'show': 'hide']">
-                <div class="option" v-for="option in options" @click="onOptionClick(option)">{{option[label]}}</div>
+            <div class="options-wrapper" :class="[showOptionPanel ? 'show': 'hide']"
+                 :style="{height: optionsHeight + 'px'}">
+                <template v-if="options.length > 0">
+                    <div class="option option-text btn-like" v-for="option in options" :key="option._id"
+                         @click="onOptionClick(option)">{{option[labelKey]}}
+                    </div>
+                </template>
+                <template v-else>
+                    <div class="empty-block flex-container flex-center option-text">
+                        no available option
+                    </div>
+                </template>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import mixin from "./mixin";
 
     export default {
         name: "form-selector",
+        mixins: [mixin],
         props: {
             title: String,
             options: Array,
-            label: String,
-            key: String
+            labelKey: String,
+            dataKey: String,
+            value: null
         },
         data() {
             return {
-                value: null,
-                showOptions: false
+                eachOptionHeight: 39,
+                label: null,
+                showOptionPanel: false
+            }
+        },
+        computed: {
+            //for height transition, and calculate due to unfixed number of options
+            //so cannot fix the display height and use css class to toggle it
+            optionsHeight() {
+                if (this.showOptionPanel) {
+                    if (this.options.length > 0) {
+                        return 10 + this.eachOptionHeight * this.options.length;
+                    }
+                    else {
+                        return this.eachOptionHeight;
+                    }
+                }
+                else return 0;
             }
         },
         methods: {
-            onSelectorClick() {
-                this.showOptions = !this.showOptions;
+            onSelectorClick(e) {
+                this.showOptionPanel = !this.showOptionPanel;
             },
-            onOptionClick() {
+            onOptionClick(option) {
+                this.label = option[this.labelKey];
+                let value = option[this.dataKey];
 
+                this.$emit("input", value);
+                this.$emit("change", value);
+
+                this.closeOptionPanel();
+            },
+            closeOptionPanel() {
+                this.showOptionPanel = false;
+            },
+            initLabel() {
+                if (this.options.length > 0) {
+                    let option = this.options.find(option => option[this.dataKey] === this.value);
+                    if (option) {
+                        this.label = option[this.labelKey];
+                    }
+                }
             }
+        },
+        mounted() {
+            this.initLabel();
+            this.$parent.$el.addEventListener("click", this.closeOptionPanel)
+        },
+        beforeDestroy() {
+            this.$parent.$el.removeEventListener("click", this.closeOptionPanel)
         }
     }
 </script>
@@ -44,72 +98,54 @@
     @import "../../styles/variables";
 
     .form-selector {
-        .title {
-            color: #9499C3;
-            font-family: lato;
-            font-size: 11px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: 100%;
-            text-align: left;
-            margin-bottom: 5px;
-        }
-        .input {
-            background: $inputBgColor;
-            color: white;
-            border: 1px solid $inputBorderColor;
-            border-radius: 4px;
-            outline: none;
-            padding: 12px;
-            font-size: 12px;
-            font-style: normal;
-            font-weight: 700;
-            line-height: 100%;
-            width: 100%;
-            cursor: pointer;
-        }
-
         .selector-wrapper {
             position: relative;
+
             .caret {
                 width: 8px;
                 height: 5px;
                 position: absolute;
                 top: 18px;
                 right: 16px;
-                cursor: pointer;
+                transition: transform 0.28s;
+
+                &.options-show {
+                    transform: rotate(180deg);
+                }
             }
         }
 
         .options-wrapper {
-            height: 0;
             position: absolute;
             top: 42px;
             left: 0;
             width: 100%;
             z-index: 10;
+
             border: 1px solid $inputBorderColor;
             background: $inputBgColor;
             border-radius: 4px;
+
             overflow: hidden;
             transition: height 0.2s;
 
-            &.show {
-                height: 119px;
-            }
-            &.hide {
-                height: 0;
-            }
             .option {
-                color: white;
-                font-family: lato;
-                font-size: 12px;
                 padding: 12px;
-                text-align: left;
-                cursor: pointer;
+
                 &:hover {
                     background: #1A1B2F;
                 }
+            }
+
+            .option:first-child {
+                margin-top: 4px;
+            }
+            .option:last-child {
+                margin-bottom: 4px;
+            }
+
+            .empty-block {
+                height: 100%;
             }
         }
     }

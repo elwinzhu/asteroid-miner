@@ -2,7 +2,15 @@ import axios from "axios";
 
 axios.defaults.baseURL = "https://asteroids.dev.mediasia.cn";
 
-export function getMiners({planetId, minerId}) {
+function responseToData(response) {
+    if (response && response.status === 200) {
+        return response.data;
+    }
+
+    return null;
+}
+
+export async function getMiners({planetId, minerId}) {
     let url = "/miners";
     if (minerId) {
         url += `/${minerId}`
@@ -14,19 +22,22 @@ export function getMiners({planetId, minerId}) {
     return axios.get(url);
 }
 
-export function createMiner(data) {
-    return axios.post("/miners", data);
+export async function createMiner(data) {
+    let response = await axios.post("/miners", data).catch(err => {
+        return null;
+    });
+    return responseToData(response);
 }
 
-export function updateMiner(id, data) {
-    return axios.put(`/miners/${id}`, data);
+export async function updateMiner(id, data) {
+    return await axios.put(`/miners/${id}`, data)
 }
 
-export function deleteMiner(id) {
-    return axios.delete(`/miners/${id}`);
+export async function deleteMiner(id) {
+    return axios.delete(`/miners/${id}`)
 }
 
-export function getPlanets(planetId) {
+export async function getPlanets(planetId) {
     let url = "/planets";
     if (planetId) {
         url += `/${planetId}`
@@ -35,19 +46,20 @@ export function getPlanets(planetId) {
     return axios.get(url);
 }
 
-export function createPlanet(data) {
-    return axios.post("/planets", data);
+export async function createPlanet(data) {
+    return await axios.post("/planets", data)
 }
 
-export function updatePlanet(id, data) {
-    return axios.put(`/planets/${id}`, data);
+export async function updatePlanet(id, data) {
+    return axios.put(`/planets/${id}`, data)
 }
 
-export function deletePlanet(id) {
+export async function deletePlanet(id) {
     return axios.delete(`/planets/${id}`);
+
 }
 
-export function getAsteroids(asteroidId) {
+export async function getAsteroids(asteroidId) {
     let url = "/asteroids";
     if (asteroidId) {
         url += `/${asteroidId}`
@@ -56,14 +68,14 @@ export function getAsteroids(asteroidId) {
     return axios.get(url);
 }
 
-export function createAsteroid(data) {
+export async function createAsteroid(data) {
     return axios.post("/asteroids", data);
 }
 
-export function updateAsteroid(id, data) {
+export async function updateAsteroid(id, data) {
     return axios.put(`/asteroids/${id}`, data);
 }
 
-export function deleteAsteroid(id) {
+export async function deleteAsteroid(id) {
     return axios.delete(`/asteroids/${id}`);
 }

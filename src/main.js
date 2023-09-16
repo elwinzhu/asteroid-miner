@@ -28,6 +28,11 @@ socket.on("connect_error", () => {
 const listener = (data) => {
     if (isInitData) {
         isInitData = false;
+
+        //theres' no such api
+        //from where i should take the initial minerals of each asteroid???
+        //so take the value when the first time connecting to the server
+        //to simulate as if it is the initial data
         store.commit("contents/setInitMinerals", data.asteroids);
     }
     store.dispatch("contents/updateDataList", data);

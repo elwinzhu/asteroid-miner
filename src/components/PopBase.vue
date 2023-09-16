@@ -6,8 +6,8 @@
                 <slot name="pop-body"></slot>
                 <slot name="pop-footer"></slot>
 
-                <div class="icon-wrapper flex-container">
-                    <i class="iconfont icon icon-delete"></i>
+                <div class="icon-wrapper flex-container flex-center">
+                    <i class="iconfont icon icon-delete btn-like" @click="onClose"></i>
                 </div>
             </div>
         </div>
@@ -21,6 +21,11 @@
             width: {
                 type: Number,
                 default: 400
+            }
+        },
+        methods: {
+            onClose() {
+                this.$emit("close")
             }
         }
     }
@@ -41,28 +46,26 @@
             background: rgba(0, 0, 0, 0.5);
         }
 
-        .pop-win{
+        .pop-win {
             padding: 24px;
             background: $popupBgColor;
             border-radius: 12px;
-            margin: 25vh auto;
+            margin: 24vh auto;
             position: relative;
             box-shadow: 0 16px 24px 0 rgba(12, 13, 33, 0.60);
         }
 
-        .icon-wrapper{
-            background: white;
+        .icon-wrapper {
+            background: $lightColor;
             border-radius: 50%;
             height: 10px;
             width: 10px;
-            justify-content: center;
-            align-items: center;
 
             position: absolute;
             right: 16px;
             top: 16px;
 
-            .icon{
+            .icon {
                 color: #31324B;
                 font-size: 24px;
             }

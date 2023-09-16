@@ -1,3 +1,27 @@
+@import "variables";
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+div, p, h1, h2, h3, h4, h5, h6, a, span {
+    font-family: lato, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+}
+
+input {
+    font-family: lato-bold, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+}
+
+body {
+    background-color: #191A29;
+}
+
 .flex-container {
     display: flex;
 }
@@ -6,6 +30,81 @@
     flex: 1;
 }
 
-.flex-y-center{
+.flex-center {
     align-items: center;
+    justify-content: center;
+}
+
+.flex-y-center {
+    align-items: center;
+}
+
+.flex-x-center {
+    justify-content: center;
+}
+
+.sm-txt {
+    font-size: 11px;
+    font-style: normal;
+}
+
+.btn-like, .btn {
+    cursor: pointer;
+    caret-color: transparent;
+}
+
+.option-text {
+    color: $lightColor;
+    font-family: lato;
+    text-align: left;
+}
+
+.pop-title {
+    color: $lightColor;
+    text-align: center;
+    font-family: lato-bold;
+    font-size: 16px;
+    line-height: 100%;
+}
+
+.label-text {
+    font-size: 11px;
+    font-style: normal;
+    line-height: 100%;
+    text-align: left;
+    color: $dimColor;
+    margin-bottom: 5px;
+}
+
+input.form-input {
+    background: $inputBgColor;
+    color: $lightColor;
+    border: 1px solid $inputBorderColor;
+    border-radius: 4px;
+    outline: none;
+    padding: 12px;
+    font-family: lato-bold;
+    font-style: normal;
+    line-height: 100%;
+    width: 100%;
+
+    &.invalid{
+        border-color: $red;
+    }
+}
+
+.form-error-msg {
+    color: $red;
+    text-align: left;
+    height: 12px;
+    font-size: 9px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+//for firefox
+input[type="number"]{
+    -moz-appearance: textfield;
 }

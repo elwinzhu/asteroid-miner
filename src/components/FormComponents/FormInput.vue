@@ -1,47 +1,29 @@
 <template>
-    <div class="component form-input">
-        <p class="title">{{title}}</p>
-        <input v-model="value" class="input"/>
+    <div class="component form-input-root">
+        <p class="title label-text">{{title}}</p>
+        <input :value="value" class="form-input" :type="type" :min="min" :max="max"
+               :class="{invalid: willShowError && !isValid}"
+               @input="onInput" @blur="onBlur" @change="onChange"/>
+        <p class="form-error-msg" v-if="enableValidation && willShowError">{{errorMsg}}</p>
     </div>
 </template>
 
 <script>
+    import mixin from "./mixin";
+
     export default {
         name: "form-input",
+        mixins: [mixin],
         props: {
-            value: String,
-            title: String
+            value: [String, Number],
+            title: String,
+            willShowError: Boolean,
+            type: {
+                default: "text",
+                validator: val => ~["text", "number"].indexOf(val)
+            },
+            min: Number,
+            max: Number
         }
     }
 </script>
-
-<style scoped lang="scss">
-    @import "../../styles/variables";
-
-    .form-input {
-        .title {
-            color: #9499C3;
-            font-family: lato;
-            font-size: 11px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: 100%;
-            text-align: left;
-            margin-bottom: 5px;
-        }
-
-        .input {
-            background: $inputBgColor;
-            color: white;
-            border: 1px solid $inputBorderColor;
-            border-radius: 4px;
-            outline: none;
-            padding: 12px;
-            font-size: 12px;
-            font-style: normal;
-            font-weight: 700;
-            line-height: 100%;
-            width: 100%;
-        }
-    }
-</style>

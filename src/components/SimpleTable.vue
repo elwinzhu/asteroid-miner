@@ -1,6 +1,6 @@
 <template>
     <div class="simple-table">
-        <table ref="table" class="table">
+        <table ref="table" class="table" :style="tableStyle">
             <thead class="tab-header">
             <td v-for="(col, i) in columns" :key="i"
                 class="header-cell"
@@ -21,7 +21,7 @@
             <tbody v-if="hasData || keyFieldName" class="tab-body">
             <tr class="data-row" v-for="row in data" :key="row[keyFieldName]">
                 <td v-for="(col, i) in columns" :key="i"
-                    class="data-cell"
+                    class="data-cell sm-txt"
                     :class="{'hidden-cell': col.hidden}"
                     :style="[{width: col.width ? (col.width + 'px') : (defaultCellWidth + 'px')},
                         col.cellStyle && col.cellStyle(row)]">
@@ -64,7 +64,13 @@
                 required: true
             },
 
-            rowClassName: [String, Function]
+            rowClassName: [String, Function],
+            tableStyle: {
+                type: Object,
+                default() {
+                    return {}
+                }
+            }
 
             //
             // [
@@ -192,7 +198,6 @@
         color: #FFF;
         font-family: lato-bold;
         font-size: 10px;
-        font-style: normal;
         line-height: 100%;
         text-align: left;
     }
@@ -202,10 +207,6 @@
 
         .data-cell {
             color: $dimColor;
-            font-family: lato;
-            font-size: 11px;
-            font-style: normal;
-            font-weight: 400;
             line-height: 100%;
             text-align: left;
             border-bottom: 1px solid $dimColor;
@@ -214,8 +215,6 @@
 
     .empty-block {
         color: white;
-        font-family: lato;
-        font-size: 12px;
         padding-top: 16px;
     }
 </style>

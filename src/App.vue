@@ -7,17 +7,7 @@
 <style lang="scss">
     @import "./styles/index";
 
-    * {
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
-    }
-    body{
-        background-color: #191A29;
-    }
-
     #app {
-        font-family: lato, poppins, sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-align: center;

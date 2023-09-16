@@ -22,7 +22,6 @@
             color: #FFF;
             font-family: poppins;
             font-size: 14px;
-            font-style: normal;
             font-weight: 400;
             line-height: 100%; /* 14px */
             letter-spacing: 2.8px;
