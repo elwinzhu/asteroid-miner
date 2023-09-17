@@ -1,6 +1,6 @@
 <template>
     <div class="compnent pop">
-        <div class="pop-mask">
+        <div class="pop-mask flex-container flex-center">
             <div class="pop-win" :style="{width: width ? (width + 'px') : '' }">
                 <slot name="pop-header"></slot>
                 <slot name="pop-body"></slot>
@@ -43,14 +43,14 @@
             top: 0;
             left: 0;
 
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(12, 13, 33, 0.66);
         }
 
         .pop-win {
             padding: 24px;
             background: $popupBgColor;
             border-radius: 12px;
-            margin: 24vh auto;
+            margin: 0 auto;
             position: relative;
             box-shadow: 0 16px 24px 0 rgba(12, 13, 33, 0.60);
         }

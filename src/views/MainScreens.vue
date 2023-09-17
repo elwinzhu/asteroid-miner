@@ -3,15 +3,16 @@
         <logo></logo>
 
         <div class="container flex-container">
-            <div class="left flex-extender">
+            <section class="left flex-extender">
                 <nav-bar class="nav-bar" @change-item="onTabItemChanged"></nav-bar>
 
                 <div class="divider"></div>
 
                 <div class="table-wrapper">
-                    <simple-table :columns="columns" :data="dataList" :table-style="tableStyle">
+                    <simple-table :columns="columns" :data="dataList" :table-style="tableStyle"
+                                  :row-click="currentListType===3 && onRowClick">
                         <template slot-scope="row" slot="action-slot">
-                            <div class="action-cell" @click="onCreateMiner(row)">
+                            <div class="action-cell" @click.stop="onCreateMiner(row)">
                                 <label>
                                     <i class="iconfont icon icon-add-miner"></i>
                                     <span class="action-txt">Create a miner</span>
@@ -20,17 +21,18 @@
                         </template>
                     </simple-table>
                 </div>
-            </div>
+            </section>
 
-            <div class="right">
-                <p class="years-txt">{{tickTxt}}</p>
+            <section class="right">
+                <p class="years-txt title-txt">{{tickTxt}}</p>
                 <div class="img-wrapper">
                 </div>
-            </div>
+            </section>
         </div>
 
         <create-miner-pop :open.sync="showCreateMinerPop" :data="planet"></create-miner-pop>
-
+        <miners-list-pop v-if="showMinerListPop" :open.sync="showMinerListPop"
+                         :planet="planet"></miners-list-pop>
     </div>
 </template>
 
@@ -41,17 +43,20 @@
     import {mapState, mapMutations} from "vuex";
     import {MinerColumns, PlanetsColumns, AsteroidColumns} from "../assets/constants";
     import CreateMinerPop from "../components/CreateMinerPop";
+    import MinersListPop from "../components/MinersListPopRT";
 
     export default {
         name: "main-screens",
         components: {
             SimpleTable: Table,
+            MinersListPop,
             Logo, NavBar, CreateMinerPop
         },
         data() {
             return {
                 currentListType: 1,
                 showCreateMinerPop: false,
+                showMinerListPop: false,
                 planet: null,
                 tableStyle: {
                     minWidth: '380px'
@@ -68,7 +73,7 @@
 
             columns() {
                 if (this.currentListType === 1) {
-                    return MinerColumns;
+                    return MinerColumns();
                 }
                 else if (this.currentListType === 2) {
                     return AsteroidColumns;
@@ -100,6 +105,10 @@
             onTabItemChanged(item) {
                 //console.log(item);
                 this.currentListType = item;
+            },
+            onRowClick(row) {
+                this.planet = row;
+                this.showMinerListPop = true;
             }
         },
         mounted() {
@@ -149,11 +158,6 @@
             flex: 1;
 
             .years-txt {
-                color: #FFF;
-                font-family: lato-bold;
-                font-size: 16px;
-                font-style: normal;
-                line-height: 100%;
                 text-transform: uppercase;
                 text-align: left;
             }

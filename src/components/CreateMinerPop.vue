@@ -1,38 +1,47 @@
 <template>
     <div class="component create-miner-pop" v-if="open">
-        <pop-base :width="440" @close="onPopClose">
-            <h3 slot="pop-header" class="pop-header pop-title">Create a miner</h3>
-            <div slot="pop-body" class="pop-body">
-                <validator :rules="validationRules" v-model="isValid" ref="validator">
-                    <div class="main-info">
-                        <form-input title="Name" v-model="name" class="form-component" form-prop="name"
-                                    :will-show-error="true"></form-input>
-                        <form-selector :options="validPlanets" data-key="_id" label-key="name"
-                                       title="Planets" class="form-component"
-                                       v-model="planetId" @change="onChange"></form-selector>
-                    </div>
-
-                    <div class="assign-points">
-                        <h3 class="pop-title">Assign points</h3>
-                        <div class="flex-container form-input-wrapper">
-                            <form-input title="carryCapacity" v-model="carryCapacity" form-prop="points"
-                                        class="form-component flex-extender" type="number" :min="0"
-                                        :max="200"></form-input>
-                            <form-input title="travelSpeed" v-model="travelSpeed" form-prop="points"
-                                        class="form-component flex-extender" type="number" :min="0"
-                                        :max="200"></form-input>
-                            <form-input title="miningSpeed" v-model="miningSpeed" form-prop="points"
-                                        class="form-component flex-extender" type="number" :min="0"
-                                        :max="200"></form-input>
+        <pop-base :width="448" @close="onPopClose">
+            <template v-if="workingMode">
+                <h3 slot="pop-header" class="pop-header title-txt">Create a miner</h3>
+                <div slot="pop-body" class="pop-body">
+                    <validator :rules="validationRules" v-model="isValid" ref="validator">
+                        <div class="main-info">
+                            <form-input title="Name" v-model="name" class="form-component" form-prop="name"
+                                        :will-show-error="true"></form-input>
+                            <form-selector :options="validPlanets" data-key="_id" label-key="name"
+                                           title="Planets" class="form-component"
+                                           v-model="planetId" @change="onChange"></form-selector>
                         </div>
-                        <label class="left-points sm-txt" :class="{exceeded: leftPoints < 0 || leftPoints > 200}">
-                            Total: {{leftPoints}}/200</label>
-                    </div>
-                </validator>
-            </div>
-            <div slot="pop-footer" class="pop-footer">
-                <button class="save-btn btn" @click="onSave">Save</button>
-            </div>
+
+                        <div class="assign-points">
+                            <h3 class="title-txt">Assign points</h3>
+                            <div class="flex-container form-input-wrapper">
+                                <form-input title="carryCapacity" v-model="carryCapacity" form-prop="points"
+                                            class="form-component flex-extender" type="number" :min="0"
+                                            :max="200"></form-input>
+                                <form-input title="travelSpeed" v-model="travelSpeed" form-prop="points"
+                                            class="form-component flex-extender" type="number" :min="0"
+                                            :max="200"></form-input>
+                                <form-input title="miningSpeed" v-model="miningSpeed" form-prop="points"
+                                            class="form-component flex-extender" type="number" :min="0"
+                                            :max="200"></form-input>
+                            </div>
+                            <label class="left-points sm-txt" :class="{exceeded: leftPoints < 0 || leftPoints > 200}">
+                                Total: {{leftPoints}}/200</label>
+                        </div>
+                    </validator>
+                </div>
+                <div slot="pop-footer" class="pop-footer">
+                    <button class="save-btn btn" @click="onSave">Save</button>
+                </div>
+            </template>
+            <template v-else>
+                <div slot="pop-body" class="pop-body">
+                    <p class="success-msg title-txt">
+                        The miner was successfully created
+                    </p>
+                </div>
+            </template>
         </pop-base>
     </div>
 </template>
@@ -105,7 +114,8 @@
                             trigger: 'change'
                         }
                     ]
-                }
+                },
+                workingMode: true
             }
         },
         methods: {
@@ -121,6 +131,7 @@
                 this.travelSpeed = 0;
                 this.miningSpeed = 0;
                 this.isValid = true;
+                this.workingMode = true;
             },
             async onSave() {
                 if (!this.isValid)
@@ -148,7 +159,7 @@
                     };
 
                     let response = await createMiner(data);
-                    console.log(response);
+                    this.workingMode = !response;
                 }
             }
         },
@@ -178,7 +189,7 @@
 
         .assign-points {
             margin-top: $marginVer;
-            h3.pop-title {
+            h3.title-txt {
                 margin-bottom: $marginVer;
             }
 
@@ -197,6 +208,11 @@
                     color: $red;
                 }
             }
+        }
+
+        .success-msg {
+            margin: 36px 0;
+            caret-color: transparent;
         }
     }
 

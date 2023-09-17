@@ -19,7 +19,8 @@
             </div>
 
             <tbody v-if="hasData || keyFieldName" class="tab-body">
-            <tr class="data-row" v-for="row in data" :key="row[keyFieldName]">
+            <tr class="data-row" @click="rowClick && rowClick(row)"
+                v-for="row in data" :key="row[keyFieldName]">
                 <td v-for="(col, i) in columns" :key="i"
                     class="data-cell sm-txt"
                     :class="{'hidden-cell': col.hidden}"
@@ -69,6 +70,11 @@
                 type: Object,
                 default() {
                     return {}
+                }
+            },
+            rowClick: {
+                type: [Function, Boolean],
+                default: () => {
                 }
             }
 

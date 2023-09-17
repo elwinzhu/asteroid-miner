@@ -1,20 +1,20 @@
 <template>
     <div class="nav-bar component flex-container">
-        <div class="item-wrapper flex-container" :class="{active: active === 1}" @click="onItemSelected(1)">
+        <div class="item-wrapper btn-like flex-container" :class="{active: active === 1}" @click="onItemSelected(1)">
             <i class="iconfont icon-miner icon"></i>
             <p class="name">
                 Miners
             </p>
         </div>
 
-        <div class="item-wrapper flex-container" :class="{active: active === 2}" @click="onItemSelected(2)">
+        <div class="item-wrapper btn-like flex-container" :class="{active: active === 2}" @click="onItemSelected(2)">
             <i class="iconfont icon-asteroid icon"></i>
             <p class="name">
                 Asteroids
             </p>
         </div>
 
-        <div class="item-wrapper flex-container" :class="{active: active === 3}" @click="onItemSelected(3)">
+        <div class="item-wrapper btn-like flex-container" :class="{active: active === 3}" @click="onItemSelected(3)">
             <i class="iconfont icon-planet icon"></i>
             <p class="name">
                 Planets
@@ -52,7 +52,6 @@
         width: 70px;
         height: 66px;
 
-        cursor: pointer;
         border: 1px solid transparent;
         border-radius: 8px;
 

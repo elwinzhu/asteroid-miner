@@ -19,7 +19,10 @@ export async function getMiners({planetId, minerId}) {
         url += `?planetId=${planetId}`;
     }
 
-    return axios.get(url);
+    let response = await axios.get(url).catch(err => {
+        return null;
+    });
+    return responseToData(response);
 }
 
 export async function createMiner(data) {
