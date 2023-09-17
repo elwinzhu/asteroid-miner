@@ -36,7 +36,7 @@
                 </div>
             </template>
             <template v-else>
-                <div slot="pop-body" class="pop-body">
+                <div slot="pop-body" class="pop-body ok-body">
                     <p class="success-msg title-txt">
                         The miner was successfully created
                     </p>
@@ -220,6 +220,9 @@
 
     .pop-body {
         overflow: hidden !important;
+    }
+    .ok-body{
+        margin-top: 0;
     }
 
     .pop-footer {
