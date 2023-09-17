@@ -86,3 +86,40 @@ export const PlanetsColumns = [
         show: (data) => data.minerals > 1000
     }
 ];
+
+export const HistoryColumns = [
+    {
+        field: "id", isRowKey: true, hidden: true
+    },
+    {
+        field: "dateTime", label: "Date", minWidth: 120,
+        maxWidth: 120
+    },
+    {
+        field: "year", label: "Year", maxWidth: 40
+    },
+    {
+        field: "planet", label: "Planet", maxWidth: 60
+    },
+    {
+        field: "carryCapacity", label: "carryCapacity",
+        template: (data) => `${data.carryCapacity}/200`,
+        cellStyle: (data) => {
+            if (parseInt(data.carryCapacity) >= 200)
+                return {color: '#00CF67'}
+        },
+        maxWidth: 70
+    },
+    {
+        field: "travelSpeed", label: "travelSpeed",  maxWidth: 65
+    },
+    {
+        field: "miningSpeed", label: "miningSpeed",  maxWidth: 65
+    },
+    {
+        field: "position", label: "Position", maxWidth: 60
+    },
+    {
+        field: "action", label: "Status", minWidth:220
+    }
+];

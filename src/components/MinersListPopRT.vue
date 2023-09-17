@@ -61,12 +61,4 @@
     .pop-body{
         margin-top: 10px;
     }
-    .loading-wrapper {
-        padding: 8px 0;
-        margin-top: 24px;
-        .icon {
-            font-size: 32px;
-            color: white;
-        }
-    }
 </style>

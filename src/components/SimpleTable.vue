@@ -5,7 +5,10 @@
             <td v-for="(col, i) in columns" :key="i"
                 class="header-cell"
                 :class="{'hidden-cell': col.hidden}"
-                :style="[{width: col.width ? (col.width + 'px') : (defaultCellWidth + 'px')}]">
+                :style="[
+                    {width: col.width ? (col.width + 'px') : (defaultCellWidth + 'px')},
+                    {minWidth: col.minWidth ? (col.minWidth + 'px') : undefined},
+                    {maxWidth: col.maxWidth ? (col.maxWidth + 'px') : undefined} ]">
                 {{col.label || ""}}
             </td>
             </thead>
@@ -24,12 +27,15 @@
                 <td v-for="(col, i) in columns" :key="i"
                     class="data-cell sm-txt"
                     :class="{'hidden-cell': col.hidden}"
-                    :style="[{width: col.width ? (col.width + 'px') : (defaultCellWidth + 'px')},
+                    :style="[
+                        {width: col.width ? (col.width + 'px') : (defaultCellWidth + 'px')},
+                        {minWidth: col.minWidth ? (col.minWidth + 'px') : undefined},
+                        {maxWidth: col.maxWidth ? (col.maxWidth + 'px') : undefined},
                         col.cellStyle && col.cellStyle(row)]">
 
                     <slot :data="row" name="action-slot" v-if="col.isAction && (col.show && col.show(row))"></slot>
                     <template v-else>
-                        {{row[col.field] }}
+                        {{(col.template && col.template(row)) || row[col.field] }}
                     </template>
                 </td>
             </tr>

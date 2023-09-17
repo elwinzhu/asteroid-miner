@@ -53,6 +53,8 @@
             margin: 0 auto;
             position: relative;
             box-shadow: 0 16px 24px 0 rgba(12, 13, 33, 0.60);
+
+            max-height: 80vh;
         }
 
         .icon-wrapper {
@@ -69,6 +71,11 @@
                 color: #31324B;
                 font-size: 24px;
             }
+        }
+
+        .pop-body {
+            max-height: 560px;
+            overflow: auto;
         }
     }
 </style>

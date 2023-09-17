@@ -53,6 +53,7 @@
     import FormSelector from "./FormComponents/FormSelector";
     import Validator from "./FormComponents/Validator";
     import {createMiner} from "../utils/api";
+    import {logSpawnMiner} from "../utils/history";
 
     export default {
         name: "create-miner-pop",
@@ -69,7 +70,8 @@
         computed: {
             ...mapState({
                 planets: state => state.contents.planetsList,
-                miners: state => state.contents.minersList
+                miners: state => state.contents.minersList,
+                tick: state => state.contents.tick
             }),
             leftPoints() {
                 return 200 - (parseInt(this.carryCapacity || 0) + parseInt(this.travelSpeed || 0) + parseInt(this.miningSpeed || 0));
@@ -160,10 +162,10 @@
 
                     let response = await createMiner(data);
                     this.workingMode = !response;
+
+                    logSpawnMiner(response, planet, this.tick);
                 }
             }
-        },
-        mounted() {
         },
         watch: {
             data(planet) {
@@ -214,6 +216,10 @@
             margin: 36px 0;
             caret-color: transparent;
         }
+    }
+
+    .pop-body {
+        overflow: hidden !important;
     }
 
     .pop-footer {

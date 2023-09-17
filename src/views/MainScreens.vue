@@ -10,7 +10,7 @@
 
                 <div class="table-wrapper">
                     <simple-table :columns="columns" :data="dataList" :table-style="tableStyle"
-                                  :row-click="currentListType===3 && onRowClick">
+                                  :row-click="rowClickHandler">
                         <template slot-scope="row" slot="action-slot">
                             <div class="action-cell" @click.stop="onCreateMiner(row)">
                                 <label>
@@ -33,6 +33,7 @@
         <create-miner-pop :open.sync="showCreateMinerPop" :data="planet"></create-miner-pop>
         <miners-list-pop v-if="showMinerListPop" :open.sync="showMinerListPop"
                          :planet="planet"></miners-list-pop>
+        <history-pop v-if="showHistoryPop" :open.sync="showHistoryPop" :miner-name="minerName"></history-pop>
     </div>
 </template>
 
@@ -44,10 +45,12 @@
     import {MinerColumns, PlanetsColumns, AsteroidColumns} from "../assets/constants";
     import CreateMinerPop from "../components/CreateMinerPop";
     import MinersListPop from "../components/MinersListPopRT";
+    import HistoryPop from "../components/HistoryPop";
 
     export default {
         name: "main-screens",
         components: {
+            HistoryPop,
             SimpleTable: Table,
             MinersListPop,
             Logo, NavBar, CreateMinerPop
@@ -57,7 +60,10 @@
                 currentListType: 1,
                 showCreateMinerPop: false,
                 showMinerListPop: false,
+                showHistoryPop: false,
+
                 planet: null,
+                minerName: null,
                 tableStyle: {
                     minWidth: '380px'
                 }
@@ -95,6 +101,10 @@
             },
             tickTxt() {
                 return `${this.tick} Year${this.tick > 1 ? "s" : ""}`;
+            },
+            rowClickHandler() {
+                return this.currentListType === 3 ? this.onPlanetRowClick :
+                    this.currentListType === 1 ? this.onMinerRowClick : undefined;
             }
         },
         methods: {
@@ -106,9 +116,13 @@
                 //console.log(item);
                 this.currentListType = item;
             },
-            onRowClick(row) {
+            onPlanetRowClick(row) {
                 this.planet = row;
                 this.showMinerListPop = true;
+            },
+            onMinerRowClick(row) {
+                this.minerName = row.name;
+                this.showHistoryPop = true;
             }
         },
         mounted() {
@@ -118,6 +132,8 @@
 </script>
 
 <style scoped lang="scss">
+    @import "../styles/variables";
+
     .container {
         .left {
             //border: 1px solid cyan;
@@ -140,7 +156,7 @@
             //max-height: 750px;
 
             .action-cell {
-                color: #00F0FF;
+                color: $actionColor;
                 cursor: pointer;
                 .icon {
                     font-size: 12px;

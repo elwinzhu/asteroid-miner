@@ -1,4 +1,5 @@
 import {MinerStatus} from "../../assets/constants";
+import {logHistory} from "../../utils/history";
 
 const state = {
     //fullDataList: null,
@@ -58,6 +59,16 @@ const mutations = {
 const actions = {
     updateDataList({commit, state}, dataList) {
         //commit("setFullDataList", dataList);
+
+        //pass the prev data whenever getting a new one
+        logHistory(
+            {miners: state.minersList},
+            {
+                miners: dataList.miners,
+                tick: dataList.currentTick
+            }
+        );
+
         commit("setPlanets", dataList.planets);
         commit("setMiners", dataList.miners);
         commit("setAsteroids", dataList.asteroids);
