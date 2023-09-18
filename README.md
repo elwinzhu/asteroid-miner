@@ -31,6 +31,17 @@ so any field taking the max value will be 198, and the combination is 1, 1, 198,
 4. the difference between main screen and bonus screen is that, the bonus screen may display an animation
 showing the miners working. we can use rAF each second to set the position of the element to control the animation.
 basic info will be {x, y, angle}. the planets and asteroids will also be fixed depending on their own position.
+
+5. current reusable components:
+- simple-table: just config the columns and pass data. it will display the columns on same style basis.
+- popup: the popupbase uses three slots for parent component to insert header, body and footer.
+- validator: set validation rules to the validator, and form-prop for children that need validation,
+the validator will provide the validity value to parent component
+
+6. this repo is built purely with JS and Vue. no css framework and components referred.
+
+7. use webSql as front db.
+
 ```
 
 
