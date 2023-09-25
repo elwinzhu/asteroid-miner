@@ -35,7 +35,7 @@
                 minerFullList: state => state.contents.minersList
             }),
             miners() {
-                return this.minerFullList.filter(x => x.planet._id === this.planet._id)
+                return this.minerFullList.filter(x => x.planet === this.planet._id)
             }
         },
         data() {

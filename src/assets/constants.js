@@ -52,12 +52,12 @@ export const AsteroidColumns = [
     {
         field: "displayMinerals", label: "Minerals", width: 80,
         cellStyle: (data) => {
-            if (data.minerals === 0)
+            if (data.currentMinerals === 0)
                 return {color: '#EB5757'}
         }
     },
     {
-        field: "displayCurrenMiner", label: "CurrentMiner", width: 80
+        field: "displayCurrentMiner", label: "CurrentMiner", width: 80
     },
     {
         field: "displayPosition", label: "Position", width: 80

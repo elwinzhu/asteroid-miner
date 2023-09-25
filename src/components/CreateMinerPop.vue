@@ -148,8 +148,10 @@
                     let data = {
                         "name": this.name,
                         "planet": this.planetId,
-                        "x": planet.position.x,
-                        "y": planet.position.y,
+                        position: {
+                            x: planet.position.x,
+                            y: planet.position.y
+                        },
                         "angle": 0,
                         "carryCapacity": this.carryCapacity,
                         "travelSpeed": this.travelSpeed,
@@ -221,7 +223,8 @@
     .pop-body {
         overflow: hidden !important;
     }
-    .ok-body{
+
+    .ok-body {
         margin-top: 0;
     }
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "https://asteroids.dev.mediasia.cn";
+axios.defaults.baseURL = "http://localhost:1681";
 
 function responseToData(response) {
     if (response && response.status === 200) {

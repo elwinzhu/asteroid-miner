@@ -154,3 +154,11 @@ input[type="number"] {
         transform: rotate(-1turn);
     }
 }
+
+.one-miner{
+    position: absolute;
+    z-index: 20;
+    border: 1px solid red;
+    width: 32px;
+    height: 32px;
+}

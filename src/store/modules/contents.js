@@ -6,9 +6,7 @@ const state = {
     asteroidsList: null,
     minersList: null,
     planetsList: null,
-    tick: 0,
-
-    asteroidInitMinerals: null
+    tick: 0
 };
 
 
@@ -20,18 +18,19 @@ const mutations = {
     setAsteroids: (state, list) => {
         list.forEach(ast => {
             ast.displayPosition = `${ast.position.x},${ast.position.y}`;
-            ast.initMineral = state.asteroidInitMinerals.find(m => m.id === ast._id).minerals;
-            ast.displayMinerals = `${ast.minerals}/${ast.initMineral}`;
-            ast.displayCurrenMiner = (ast.currentMiner && ast.currentMiner.name) || 0;
+            ast.displayMinerals = `${ast.currentMinerals}/${ast.initMinerals}`;
+            //ast.displayCurrenMiner = (ast.currentMiner && ast.currentMiner.name) || 0;
+            ast.displayCurrentMiner = state.minersList.filter(x => x.status === 2 && x.target === ast._id)
+                .map(x => x.name).join(",") || 0;
         });
 
         state.asteroidsList = list;
     },
     setMiners: (state, list) => {
         list.forEach(miner => {
-            miner.planetName = miner.planet.name;
+            miner.planetName = state.planetsList.find(x => x._id === miner.planet).name;
             miner.displayCapacity = `${miner.carryCapacity}/200`;
-            miner.displayPosition = `${parseInt(miner.x)},${parseInt(miner.y)}`;
+            miner.displayPosition = `${parseInt(miner.position.x)},${parseInt(miner.position.y)}`;
             miner.displayStatus = `${MinerStatus[miner.status]}`;
         });
 
@@ -45,14 +44,6 @@ const mutations = {
     },
     setTick: (state, tick) => {
         state.tick = tick;
-    },
-    setInitMinerals: (state, asteroids) => {
-        state.asteroidInitMinerals = asteroids.map(ast => {
-            return {
-                id: ast._id,
-                minerals: ast.minerals
-            }
-        });
     }
 };
 
@@ -70,6 +61,8 @@ const actions = {
         );
 
         commit("setPlanets", dataList.planets);
+        //should set miners before asteroid
+        //as asteroids need to check the miners
         commit("setMiners", dataList.miners);
         commit("setAsteroids", dataList.asteroids);
         commit("setTick", dataList.currentTick);
