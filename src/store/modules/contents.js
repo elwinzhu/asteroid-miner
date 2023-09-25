@@ -1,5 +1,6 @@
 import {MinerStatus} from "../../assets/constants";
 import {logHistory} from "../../utils/history";
+import {dropTable} from "../../utils/db";
 
 const state = {
     //fullDataList: null,
@@ -50,6 +51,11 @@ const mutations = {
 const actions = {
     updateDataList({commit, state}, dataList) {
         //commit("setFullDataList", dataList);
+
+        if (dataList.currentTick < state.tick) {
+            //new round for another 6 min
+            dropTable();
+        }
 
         //pass the prev data whenever getting a new one
         logHistory(
